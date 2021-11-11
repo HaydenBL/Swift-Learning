@@ -14,6 +14,9 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             themeSelector.frame(maxWidth: .infinity)
+            Text(viewModel.themeName)
+                .font(.title2)
+                .foregroundColor(.black)
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
                 ForEach(viewModel.cards) { card in
                     CardView(card: card)
@@ -24,7 +27,7 @@ struct ContentView: View {
                 }
             }
         }
-        .foregroundColor(viewModel.color)
+        .foregroundColor(viewModel.themeColor)
         .padding(.horizontal)
     }
     
@@ -52,7 +55,6 @@ struct ContentView: View {
                 }
             }
         }
-        .padding(.bottom)
     }
     
 }

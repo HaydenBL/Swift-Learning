@@ -15,8 +15,8 @@ class EmojiMemoryGame: ObservableObject {
         let numberOfPairsOfCards = theme.numberOfPairsOfCards > theme.emojis.count ? theme.emojis.count : theme.numberOfPairsOfCards
         let emojis = numberOfPairsOfCards < theme.emojis.count ? getEmojis(num: numberOfPairsOfCards, emojis: theme.emojis) : theme.emojis
         return MemoryGame<Character>(
-            name: theme.name,
-            color: theme.color,
+            themeName: theme.name,
+            themeColor: theme.color,
             numberOfPairsOfCards: numberOfPairsOfCards
         ) { index in emojis[index] }
     }
@@ -37,12 +37,12 @@ class EmojiMemoryGame: ObservableObject {
         return model.cards
     }
     
-    var name: String {
-        return model.name
+    var themeName: String {
+        return model.themeName
     }
     
-    var color: Color {
-        return model.color
+    var themeColor: Color {
+        return model.themeColor
     }
     
     // MARK: - Intent(s)
