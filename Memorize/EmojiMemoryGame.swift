@@ -8,66 +8,6 @@
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
-
-    static let themes: [EmojiMemoryGame.Theme] = [
-        EmojiMemoryGame.Theme(
-            name: "Faces",
-            emojis: [
-                "🥴", "🤪", "😌", "🍭", "😪", "😀", "😃", "😊",
-                "🥲", "😍", "😶‍🌫️", "🤩", "😞"
-            ],
-            numberOfPairsOfCards: 13,
-            color: .red
-        ),
-        EmojiMemoryGame.Theme(
-            name: "Foods",
-            emojis: [
-                "🍔", "🌭", "🌮", "🌯", "🥙", "🥗", "🥪", "🍕", "🍟",
-                "🍖", "🍗", "🥓", "🍱", "🥘", "🧆", "🍲", "🍛", "🍜",
-                "🍝", "🍣", "🍤", "🍿"
-            ],
-            numberOfPairsOfCards: 99,
-            color: .orange
-        ),
-        EmojiMemoryGame.Theme(
-            name: "Animals",
-            emojis: [
-                "🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨",
-                "🐯", "🦁", "🐮", "🐷", "🐽", "🐸", "🐵"
-            ],
-            numberOfPairsOfCards: 16,
-            color: .yellow
-        ),
-        EmojiMemoryGame.Theme(
-            name: "Fruits",
-            emojis: [
-                "🍏", "🍐", "🍎", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓",
-                "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥥", "🥝", "🥐",
-                "🥯", "🍞", "🥖", "🥨", "🧀", "🥚", "🍳", "🧈", "🥞",
-            ],
-            numberOfPairsOfCards: 99,
-            color: Color.green
-        ),
-        EmojiMemoryGame.Theme(
-            name: "Sports",
-            emojis: [
-                "⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🏉", "🥏",
-                "🎱", "🪀", "🏓", "🏸", "🏒", "🏑", "🥍", "🏏", "🪃",
-                "🥅", "⛳️", "🏹", "🎣"
-            ],
-            numberOfPairsOfCards: 99,
-            color: .indigo
-        ),
-        EmojiMemoryGame.Theme(
-            name: "Vehicles",
-            emojis: [
-                "🚗", "🚕", "🚙", "🚌", "🚎", "🏎", "🚓", "🚑", "🚒",
-                "🚐", "🛻", "🚚", "🚛", "🚜", "🚃", "🚟"
-            ],
-            numberOfPairsOfCards: 99,
-            color: .purple
-        ),
-    ]
     
     @Published private var model = createGame(theme: themes[0])
     
@@ -107,6 +47,10 @@ class EmojiMemoryGame: ObservableObject {
     
     // MARK: - Intent(s)
     
+    func startNewGame(themeIndex: Int) {
+        self.model = EmojiMemoryGame.createGame(theme: EmojiMemoryGame.themes[themeIndex])
+    }
+    
     func choose(_ card: MemoryGame<Character>.Card) {
         model.choose(card)
     }
@@ -119,4 +63,66 @@ class EmojiMemoryGame: ObservableObject {
         var numberOfPairsOfCards: Int
         var color: Color
     }
+    
+    // MARK - Constants
+    
+    static let themes: [EmojiMemoryGame.Theme] = [
+        EmojiMemoryGame.Theme(
+            name: "Faces",
+            emojis: [
+                "🥴", "🤪", "😌", "🍭", "😪", "😀", "😃", "😊",
+                "🥲", "😍", "😶‍🌫️", "🤩", "😞"
+            ],
+            numberOfPairsOfCards: 13,
+            color: .red
+        ),
+        EmojiMemoryGame.Theme(
+            name: "Foods",
+            emojis: [
+                "🍔", "🌭", "🌮", "🌯", "🥙", "🥗", "🥪", "🍕", "🍟",
+                "🍖", "🍗", "🥓", "🍱", "🥘", "🧆", "🍲", "🍛", "🍜",
+                "🍝", "🍣", "🍤", "🍿"
+            ],
+            numberOfPairsOfCards: 99,
+            color: .orange
+        ),
+        EmojiMemoryGame.Theme(
+            name: "Animals",
+            emojis: [
+                "🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨",
+                "🐯", "🦁", "🐮", "🐷", "🐽", "🐸", "🐵"
+            ],
+            numberOfPairsOfCards: 16,
+            color: .yellow
+        ),
+        EmojiMemoryGame.Theme(
+            name: "Fruits",
+            emojis: [
+                "🍏", "🍐", "🍎", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓",
+                "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥥", "🥝", "🥐",
+                "🥯", "🍞", "🥖", "🥨", "🧀", "🥚", "🍳", "🧈", "🥞",
+            ],
+            numberOfPairsOfCards: 99,
+            color: .green
+        ),
+        EmojiMemoryGame.Theme(
+            name: "Sports",
+            emojis: [
+                "⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🏉", "🥏",
+                "🎱", "🪀", "🏓", "🏸", "🏒", "🏑", "🥍", "🏏", "🪃",
+                "🥅", "⛳️", "🏹", "🎣"
+            ],
+            numberOfPairsOfCards: 99,
+            color: .blue
+        ),
+        EmojiMemoryGame.Theme(
+            name: "Vehicles",
+            emojis: [
+                "🚗", "🚕", "🚙", "🚌", "🚎", "🏎", "🚓", "🚑", "🚒",
+                "🚐", "🛻", "🚚", "🚛", "🚜", "🚃", "🚟"
+            ],
+            numberOfPairsOfCards: 99,
+            color: .purple
+        ),
+    ]
 }
