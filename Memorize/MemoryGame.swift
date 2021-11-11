@@ -46,11 +46,12 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             cards.append(Card(content: content))
             cards.append(Card(content: content))
         }
+        cards.shuffle()
     }
     
     struct Card: Identifiable {
         var id = UUID().uuidString
-        var isFaceUp: Bool = true
+        var isFaceUp: Bool = false
         var isMatched: Bool = false
         var content: CardContent
     }

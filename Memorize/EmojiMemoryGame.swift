@@ -77,6 +77,15 @@ class EmojiMemoryGame: ObservableObject {
             color: .red
         ),
         EmojiMemoryGame.Theme(
+            name: "Animals",
+            emojis: [
+                "🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨",
+                "🐯", "🦁", "🐮", "🐷", "🐽", "🐸", "🐵"
+            ],
+            numberOfPairsOfCards: 16,
+            color: .orange
+        ),
+        EmojiMemoryGame.Theme(
             name: "Foods",
             emojis: [
                 "🍔", "🌭", "🌮", "🌯", "🥙", "🥗", "🥪", "🍕", "🍟",
@@ -84,21 +93,12 @@ class EmojiMemoryGame: ObservableObject {
                 "🍝", "🍣", "🍤", "🍿"
             ],
             numberOfPairsOfCards: 99,
-            color: .orange
-        ),
-        EmojiMemoryGame.Theme(
-            name: "Animals",
-            emojis: [
-                "🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨",
-                "🐯", "🦁", "🐮", "🐷", "🐽", "🐸", "🐵"
-            ],
-            numberOfPairsOfCards: 16,
             color: .yellow
         ),
         EmojiMemoryGame.Theme(
             name: "Fruits",
             emojis: [
-                "🍏", "🍐", "🍎", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓",
+                "🍎", "🍏", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓",
                 "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥥", "🥝", "🥐",
                 "🥯", "🍞", "🥖", "🥨", "🧀", "🥚", "🍳", "🧈", "🥞",
             ],
@@ -118,7 +118,7 @@ class EmojiMemoryGame: ObservableObject {
         EmojiMemoryGame.Theme(
             name: "Vehicles",
             emojis: [
-                "🚗", "🚕", "🚙", "🚌", "🚎", "🏎", "🚓", "🚑", "🚒",
+                "🚕", "🚗", "🚙", "🚌", "🚎", "🏎", "🚓", "🚑", "🚒",
                 "🚐", "🛻", "🚚", "🚛", "🚜", "🚃", "🚟"
             ],
             numberOfPairsOfCards: 99,
