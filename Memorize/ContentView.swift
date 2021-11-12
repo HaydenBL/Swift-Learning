@@ -12,11 +12,24 @@ struct ContentView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
+        NavigationView {
+            content
+                .navigationTitle(viewModel.themeName)
+                .toolbar {
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        Text("Score: 5")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                        Spacer()
+                    }
+                }
+        }
+        .navigationViewStyle(.stack)
+    }
+    
+    var content: some View {
         ScrollView {
             themeSelector.frame(maxWidth: .infinity)
-            Text(viewModel.themeName)
-                .font(.title2)
-                .foregroundColor(.black)
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
                 ForEach(viewModel.cards) { card in
                     CardView(card: card)
