@@ -17,7 +17,7 @@ struct ContentView: View {
                 .navigationTitle(viewModel.themeName)
                 .toolbar {
                     ToolbarItemGroup(placement: .bottomBar) {
-                        Text("Score: 5")
+                        Text("Score: \(viewModel.score)")
                             .font(.title3)
                             .fontWeight(.semibold)
                         Spacer()
