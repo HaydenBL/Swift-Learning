@@ -9,14 +9,15 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     
-    @Published private var model = createGame(theme: themes[0])
+    @Published private var model = createGame(theme: themes[0], themeIndex: 0)
     
-    static func createGame(theme: Theme) -> MemoryGame<Character> {
+    static func createGame(theme: Theme, themeIndex: Int) -> MemoryGame<Character> {
         let numberOfPairsOfCards = theme.numberOfPairsOfCards > theme.emojis.count ? theme.emojis.count : theme.numberOfPairsOfCards
         let emojis = numberOfPairsOfCards < theme.emojis.count ? getEmojis(num: numberOfPairsOfCards, emojis: theme.emojis) : theme.emojis
         return MemoryGame<Character>(
             themeName: theme.name,
             themeColor: theme.color,
+            themeIndex: themeIndex,
             numberOfPairsOfCards: numberOfPairsOfCards
         ) { index in emojis[index] }
     }
@@ -45,10 +46,14 @@ class EmojiMemoryGame: ObservableObject {
         return model.themeColor
     }
     
+    var themeIndex: Int {
+        return model.themeIndex
+    }
+    
     // MARK: - Intent(s)
     
     func startNewGame(themeIndex: Int) {
-        self.model = EmojiMemoryGame.createGame(theme: EmojiMemoryGame.themes[themeIndex])
+        self.model = EmojiMemoryGame.createGame(theme: EmojiMemoryGame.themes[themeIndex], themeIndex: themeIndex)
     }
     
     func choose(_ card: MemoryGame<Character>.Card) {
@@ -70,8 +75,8 @@ class EmojiMemoryGame: ObservableObject {
         EmojiMemoryGame.Theme(
             name: "Faces",
             emojis: [
-                "🥴", "🤪", "😌", "🍭", "😪", "😀", "😃", "😊",
-                "🥲", "😍", "😶‍🌫️", "🤩", "😞"
+                "🥴", "🤪", "😌", "😪", "😀", "😃", "😊", "🥲", "😍",
+                "😶‍🌫️", "🤩", "😞"
             ],
             numberOfPairsOfCards: 13,
             color: .red

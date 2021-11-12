@@ -12,6 +12,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
     private(set) var themeName: String
     private(set) var themeColor: Color
+    private(set) var themeIndex: Int
     
     private var indexOfFaceUpCard: Int?
     
@@ -36,9 +37,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    init(themeName: String, themeColor: Color, numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {
+    init(themeName: String, themeColor: Color, themeIndex: Int, numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {
         self.themeName = themeName
         self.themeColor = themeColor
+        self.themeIndex = themeIndex
         
         cards = []
         for pairIndex in 0..<numberOfPairsOfCards {

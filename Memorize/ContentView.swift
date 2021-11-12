@@ -31,28 +31,35 @@ struct ContentView: View {
         .padding(.horizontal)
     }
     
-    struct ThemeButton: View {
-        let emoji: Character
-        let color: Color
-        
-        var body: some View {
-            ZStack {
-                Circle()
-                    .fill(color)
-                    .frame(width: 40, height: 40)
-                Text(String(emoji))
-            }
-        }
-    }
-    
     var themeSelector: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 95))], spacing: 20) {
             ForEach(0..<EmojiMemoryGame.themes.count) { i in
                 let firstEmoji = EmojiMemoryGame.themes[i].emojis[0]
                 let color = EmojiMemoryGame.themes[i].color
-                ThemeButton(emoji: firstEmoji, color: color).onTapGesture {
-                    viewModel.startNewGame(themeIndex: i)
-                }
+                let selected = i == viewModel.themeIndex
+                ThemeButton(emoji: firstEmoji, color: color, selected: selected)
+                    .onTapGesture {
+                        viewModel.startNewGame(themeIndex: i)
+                    }
+            }
+        }
+    }
+    
+    struct ThemeButton: View {
+        let emoji: Character
+        let color: Color
+        let selected: Bool
+        
+        var body: some View {
+            ZStack {
+                Circle()
+                    .strokeBorder(selected ? color : Color(UIColor.systemBackground), lineWidth: 4)
+                    .background(Color(UIColor.systemBackground))
+                    .frame(width: 55, height: 55)
+                Circle()
+                    .fill(color)
+                    .frame(width: 40, height: 40)
+                Text(String(emoji))
             }
         }
     }
