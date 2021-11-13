@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  EmojiMemoryGameView.swift
 //  Memorize
 //
 //  Created by Hayden Lueck on 2021-11-05.
@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct EmojiMemoryGameView: View {
     
-    @ObservedObject var viewModel: EmojiMemoryGame
+    @ObservedObject var game: EmojiMemoryGame
     
     var body: some View {
         NavigationView {
             content
-                .navigationTitle(viewModel.themeName)
+                .navigationTitle(game.themeName)
                 .toolbar {
                     ToolbarItemGroup(placement: .bottomBar) {
-                        Text("Score: \(viewModel.score)")
+                        Text("Score: \(game.score)")
                             .font(.title3)
                             .fontWeight(.semibold)
                         Spacer()
@@ -31,16 +31,16 @@ struct ContentView: View {
         ScrollView {
             themeSelector.frame(maxWidth: .infinity)
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                ForEach(viewModel.cards) { card in
+                ForEach(game.cards) { card in
                     CardView(card: card)
                         .aspectRatio(2/3, contentMode: .fit)
                         .onTapGesture {
-                            viewModel.choose(card)
+                            game.choose(card)
                         }
                 }
             }
         }
-        .foregroundColor(viewModel.themeColor)
+        .foregroundColor(game.themeColor)
         .padding(.horizontal)
     }
     
@@ -49,10 +49,10 @@ struct ContentView: View {
             ForEach(0..<EmojiMemoryGame.themes.count) { i in
                 let firstEmoji = EmojiMemoryGame.themes[i].emojis[0]
                 let color = EmojiMemoryGame.themes[i].color
-                let selected = i == viewModel.themeIndex
+                let selected = i == game.themeIndex
                 ThemeButton(emoji: firstEmoji, color: color, selected: selected)
                     .onTapGesture {
-                        viewModel.startNewGame(themeIndex: i)
+                        game.startNewGame(themeIndex: i)
                     }
             }
         }
@@ -80,7 +80,7 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-    let card: MemoryGame<Character>.Card
+    let card: EmojiMemoryGame.Card
     
     var body: some View {
         ZStack {
@@ -102,9 +102,9 @@ struct CardView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let game = EmojiMemoryGame()
-        ContentView(viewModel: game)
+        EmojiMemoryGameView(game: game)
             .preferredColorScheme(.light)
-        ContentView(viewModel: game)
+        EmojiMemoryGameView(game: game)
             .preferredColorScheme(.dark)
     }
 }
