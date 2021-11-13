@@ -83,18 +83,21 @@ struct CardView: View {
     let card: EmojiMemoryGame.Card
     
     var body: some View {
-        ZStack {
-            let cardShape = RoundedRectangle(cornerRadius: 25.0)
-            if card.isFaceUp {
-                cardShape.fill().foregroundColor(.white)
-                cardShape.strokeBorder(lineWidth: 3)
-                Text(String(card.content)).font(.largeTitle)
-            } else if card.isMatched {
-                cardShape.opacity(0)
-            } else {
-                cardShape.fill()
+        GeometryReader { geometry in
+            ZStack {
+                let cardShape = RoundedRectangle(cornerRadius: 25.0)
+                if card.isFaceUp {
+                    cardShape.fill().foregroundColor(.white)
+                    cardShape.strokeBorder(lineWidth: 3)
+                    Text(String(card.content))
+                        .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.8))
+                } else if card.isMatched {
+                    cardShape.opacity(0)
+                } else {
+                    cardShape.fill()
+                }
+                
             }
-            
         }
     }
 }
