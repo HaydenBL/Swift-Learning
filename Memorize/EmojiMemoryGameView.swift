@@ -26,26 +26,28 @@ struct EmojiMemoryGameView: View {
         }
         .navigationViewStyle(.stack)
     }
-    
+  
     var content: some View {
-        ScrollView {
+        VStack {
             themeSelector.frame(maxWidth: .infinity)
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                ForEach(game.cards) { card in
+            AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
+                if card.isMatched && card.isFaceUp {
+                    Rectangle().opacity(0)
+                } else {
                     CardView(card: card)
-                        .aspectRatio(2/3, contentMode: .fit)
+                        .padding(4)
                         .onTapGesture {
                             game.choose(card)
                         }
                 }
             }
+            .foregroundColor(game.themeColor)
+            .padding(.horizontal)
         }
-        .foregroundColor(game.themeColor)
-        .padding(.horizontal)
     }
     
     var themeSelector: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 95))], spacing: 20) {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 95))]) {
             ForEach(0..<EmojiMemoryGame.themes.count) { i in
                 let firstEmoji = EmojiMemoryGame.themes[i].emojis[0]
                 let color = EmojiMemoryGame.themes[i].color
@@ -85,12 +87,12 @@ struct CardView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                let cardShape = RoundedRectangle(cornerRadius: 25.0)
+                let cardShape = RoundedRectangle(cornerRadius: 10)
                 if card.isFaceUp {
                     cardShape.fill().foregroundColor(.white)
                     cardShape.strokeBorder(lineWidth: 3)
                     Text(String(card.content))
-                        .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.8))
+                        .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.75))
                 } else if card.isMatched {
                     cardShape.opacity(0)
                 } else {
