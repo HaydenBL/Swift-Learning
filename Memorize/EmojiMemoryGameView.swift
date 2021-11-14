@@ -15,6 +15,7 @@ struct EmojiMemoryGameView: View {
         NavigationView {
             content
                 .navigationTitle(game.themeName)
+                .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItemGroup(placement: .bottomBar) {
                         Text("Score: \(game.score)")
@@ -31,7 +32,7 @@ struct EmojiMemoryGameView: View {
         VStack {
             themeSelector.frame(maxWidth: .infinity)
             AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
-                if card.isMatched && card.isFaceUp {
+                if card.isMatched && !card.isFaceUp {
                     Rectangle().opacity(0)
                 } else {
                     CardView(card: card)
@@ -87,22 +88,12 @@ struct CardView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                let cardShape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
-                if card.isFaceUp {
-                    cardShape.fill().foregroundColor(.white)
-                    cardShape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-                    Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: 110-90))
-                        .padding(6)
-                        .opacity(0.5)
-                    Text(String(card.content))
-                        .font(font(in: geometry.size))
-                } else if card.isMatched {
-                    cardShape.opacity(0)
-                } else {
-                    cardShape.fill()
-                }
-                
-            }
+                Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: 110-90))
+                    .padding(6)
+                    .opacity(0.5)
+                Text(String(card.content))
+                    .font(font(in: geometry.size))
+            }.cardify(isFaceUp: card.isFaceUp)
         }
     }
     
@@ -111,8 +102,6 @@ struct CardView: View {
     }
     
     private struct DrawingConstants {
-        static let cornerRadius: CGFloat = 10
-        static let lineWidth: CGFloat = 3
         static let fontScale: CGFloat = 0.7
     }
 }

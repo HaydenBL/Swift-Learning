@@ -123,7 +123,7 @@ class EmojiMemoryGame: ObservableObject {
                 "🎱", "🪀", "🏓", "🏸", "🏒", "🏑", "🥍", "🏏", "🪃",
                 "🥅", "⛳️", "🏹", "🎣"
             ],
-            numberOfPairsOfCards: 3,
+            numberOfPairsOfCards: 4,
             color: .blue
         ),
         EmojiMemoryGame.Theme(
