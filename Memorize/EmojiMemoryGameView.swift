@@ -87,12 +87,15 @@ struct CardView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                let cardShape = RoundedRectangle(cornerRadius: 10)
+                let cardShape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
                 if card.isFaceUp {
                     cardShape.fill().foregroundColor(.white)
-                    cardShape.strokeBorder(lineWidth: 3)
+                    cardShape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
+                    Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: 110-90))
+                        .padding(6)
+                        .opacity(0.5)
                     Text(String(card.content))
-                        .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.75))
+                        .font(font(in: geometry.size))
                 } else if card.isMatched {
                     cardShape.opacity(0)
                 } else {
@@ -102,11 +105,28 @@ struct CardView: View {
             }
         }
     }
+    
+    private func font(in size: CGSize) -> Font {
+        Font.system(size: min(size.width, size.height) * DrawingConstants.fontScale)
+    }
+    
+    private struct DrawingConstants {
+        static let cornerRadius: CGFloat = 10
+        static let lineWidth: CGFloat = 3
+        static let fontScale: CGFloat = 0.7
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
+    private static func getGame() -> EmojiMemoryGame {
         let game = EmojiMemoryGame()
+        game.startNewGame(themeIndex: 4)
+        game.choose(game.cards.first!)
+        return game
+    }
+    
+    static var previews: some View {
+        let game = self.getGame()
         EmojiMemoryGameView(game: game)
             .preferredColorScheme(.light)
         EmojiMemoryGameView(game: game)

@@ -84,7 +84,7 @@ class EmojiMemoryGame: ObservableObject {
                 "🥴", "🤪", "😌", "😪", "😀", "😃", "😊", "🥲", "😍",
                 "😶‍🌫️", "🤩", "😞"
             ],
-            numberOfPairsOfCards: 13,
+            numberOfPairsOfCards: 5,
             color: .red
         ),
         EmojiMemoryGame.Theme(
@@ -123,7 +123,7 @@ class EmojiMemoryGame: ObservableObject {
                 "🎱", "🪀", "🏓", "🏸", "🏒", "🏑", "🥍", "🏏", "🪃",
                 "🥅", "⛳️", "🏹", "🎣"
             ],
-            numberOfPairsOfCards: 99,
+            numberOfPairsOfCards: 3,
             color: .blue
         ),
         EmojiMemoryGame.Theme(
