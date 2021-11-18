@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "EmojiMemoryGameView.isUndealt(_:):EmojiMemoryGameView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "EmojiMemoryGameView.deal(_:):EmojiMemoryGameView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "EmojiMemoryGameView.content.getter:EmojiMemoryGameView.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

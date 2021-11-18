@@ -56,6 +56,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
+    mutating func shuffle() {
+        cards.shuffle();
+    }
+    
     init(themeName: String, themeColor: Color, themeIndex: Int, numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {
         self.themeName = themeName
         self.themeColor = themeColor

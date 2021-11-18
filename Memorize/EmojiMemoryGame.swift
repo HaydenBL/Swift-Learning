@@ -66,6 +66,10 @@ class EmojiMemoryGame: ObservableObject {
         model.choose(card)
     }
     
+    func shuffle() {
+        model.shuffle();
+    }
+    
     // MARK: - Data Structures
     
     struct Theme {
