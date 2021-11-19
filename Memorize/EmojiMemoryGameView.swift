@@ -31,6 +31,11 @@ struct EmojiMemoryGameView: View {
                             .fontWeight(.semibold)
                         Spacer()
                         shuffleButton
+                            .onAppear {
+                                withAnimation {
+                                    resetDealing()
+                                }
+                            }
                     }
                 }
         }
@@ -53,6 +58,13 @@ struct EmojiMemoryGameView: View {
         return !dealt.contains(card.id)
     }
     
+    private func resetDealing() {
+        dealt = Set<String>()
+        for card in game.cards {
+            deal(card)
+        }
+    }
+    
     var content: some View {
         VStack {
             themeSelector.frame(maxWidth: .infinity)
@@ -68,13 +80,6 @@ struct EmojiMemoryGameView: View {
                                 game.choose(card)
                             }
                         }
-                }
-            }
-            .onAppear {
-                withAnimation {
-                    for card in game.cards {
-                        deal(card)
-                    }
                 }
             }
             .foregroundColor(game.themeColor)
@@ -99,6 +104,9 @@ struct EmojiMemoryGameView: View {
                 ThemeButton(emoji: firstEmoji, color: color, selected: selected)
                     .onTapGesture {
                         game.startNewGame(themeIndex: i)
+                        withAnimation{
+                            resetDealing()
+                        }
                     }
             }
         }

@@ -85,7 +85,7 @@ class EmojiMemoryGame: ObservableObject {
         EmojiMemoryGame.Theme(
             name: "Faces",
             emojis: [
-                "🥴", "🤪", "😌", "😪", "😀", "😃", "😊", "🥲", "😍",
+                "🥴", "🤪", "😌", "😪", "😃", "😊", "🥲", "😍",
                 "😶‍🌫️", "🤩", "😞"
             ],
             numberOfPairsOfCards: 5,
@@ -95,7 +95,7 @@ class EmojiMemoryGame: ObservableObject {
             name: "Animals",
             emojis: [
                 "🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨",
-                "🐯", "🦁", "🐮", "🐷", "🐽", "🐸", "🐵"
+                "🐯", "🦁", "🐮", "🐷", "🐸", "🐵"
             ],
             numberOfPairsOfCards: 16,
             color: .orange
@@ -114,8 +114,7 @@ class EmojiMemoryGame: ObservableObject {
             name: "Fruits",
             emojis: [
                 "🍎", "🍏", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓",
-                "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥥", "🥝", "🥐",
-                "🥯", "🍞", "🥖", "🥨", "🧀", "🥚", "🍳", "🧈", "🥞",
+                "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥥", "🥝"
             ],
             numberOfPairsOfCards: 99,
             color: .green
