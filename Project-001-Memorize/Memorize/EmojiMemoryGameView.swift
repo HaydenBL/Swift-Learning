@@ -16,7 +16,7 @@ struct EmojiMemoryGameView: View {
     var body: some View {
         NavigationView {
             content
-                .navigationTitle(game.themeName)
+                .navigationTitle(game.theme.name)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItemGroup(placement: .bottomBar) {
@@ -61,7 +61,7 @@ struct EmojiMemoryGameView: View {
                             }
                     }
                 }
-                .foregroundColor(game.themeColor)
+                .foregroundColor(game.theme.color)
                 .padding(.horizontal)
                 deckBody
                     .onTapGesture {
@@ -97,7 +97,7 @@ struct EmojiMemoryGameView: View {
             }
         }
         .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
-        .foregroundColor(game.themeColor)
+        .foregroundColor(game.theme.color)
     }
     
     private struct CardConstants {
@@ -118,14 +118,14 @@ struct EmojiMemoryGameView: View {
 
     var themeSelector: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 95))]) {
-            ForEach(0..<EmojiMemoryGame.themes.count) { i in
-                let firstEmoji = EmojiMemoryGame.themes[i].emojis[0]
-                let color = EmojiMemoryGame.themes[i].color
+            ForEach(Theme.themes.indices) { i in
+                let firstEmoji = Theme.themes[i].emojis[0]
+                let color = Theme.themes[i].color
                 let selected = i == game.themeIndex
                 ThemeButton(emoji: firstEmoji, color: color, selected: selected)
                     .onTapGesture {
                         dealt = []
-                        game.startNewGame(themeIndex: i)
+                        game.setTheme(themeIndex: i)
                     }
             }
         }
@@ -197,7 +197,7 @@ struct CardView: View {
 struct ContentView_Previews: PreviewProvider {
     private static func getGame() -> EmojiMemoryGame {
         let game = EmojiMemoryGame()
-        game.startNewGame(themeIndex: 4)
+        game.startNewGame()
         game.choose(game.cards.first!)
         return game
     }

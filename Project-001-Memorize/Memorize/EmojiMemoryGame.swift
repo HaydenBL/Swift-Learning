@@ -9,17 +9,29 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     
+    private let START_THEME_INDEX = 0
+    
     typealias Card = MemoryGame<Character>.Card
     
-    @Published private var model = createGame(theme: themes[0], themeIndex: 0)
+    @Published private var model: MemoryGame<Character>
+    @Published private(set) var themeIndex: Int {
+        didSet {
+            model = EmojiMemoryGame.createGame(themeIndex: themeIndex)
+        }
+    }
     
-    static func createGame(theme: Theme, themeIndex: Int) -> MemoryGame<Character> {
+    init() {
+        themeIndex = START_THEME_INDEX
+        model = EmojiMemoryGame.createGame(themeIndex: START_THEME_INDEX)
+    }
+    
+    static func createGame(themeIndex: Int) -> MemoryGame<Character> {
+        let theme = Theme.themes[themeIndex]
         let numberOfPairsOfCards = theme.numberOfPairsOfCards > theme.emojis.count ? theme.emojis.count : theme.numberOfPairsOfCards
         let emojis = numberOfPairsOfCards < theme.emojis.count ? getEmojis(num: numberOfPairsOfCards, emojis: theme.emojis) : theme.emojis
         return MemoryGame<Character>(
             themeName: theme.name,
             themeColor: theme.color,
-            themeIndex: themeIndex,
             numberOfPairsOfCards: numberOfPairsOfCards
         ) { index in emojis[index] }
     }
@@ -44,22 +56,18 @@ class EmojiMemoryGame: ObservableObject {
         return model.score
     }
     
-    var themeName: String {
-        return model.themeName
-    }
-    
-    var themeColor: Color {
-        return model.themeColor
-    }
-    
-    var themeIndex: Int {
-        return model.themeIndex
+    var theme: Theme {
+        return Theme.themes[themeIndex]
     }
     
     // MARK: - Intent(s)
     
-    func startNewGame(themeIndex: Int) {
-        self.model = EmojiMemoryGame.createGame(theme: EmojiMemoryGame.themes[themeIndex], themeIndex: themeIndex)
+    func startNewGame() {
+        self.model = EmojiMemoryGame.createGame(themeIndex: self.themeIndex)
+    }
+    
+    func setTheme(themeIndex: Int) {
+        self.themeIndex = themeIndex
     }
     
     func choose(_ card: Card) {
@@ -70,73 +78,4 @@ class EmojiMemoryGame: ObservableObject {
         model.shuffle();
     }
     
-    // MARK: - Data Structures
-    
-    struct Theme {
-        var name: String
-        var emojis: [Character]
-        var numberOfPairsOfCards: Int
-        var color: Color
-    }
-    
-    // MARK - Constants
-    
-    static let themes: [EmojiMemoryGame.Theme] = [
-        EmojiMemoryGame.Theme(
-            name: "Faces",
-            emojis: [
-                "🥴", "🤪", "😌", "😪", "😃", "😊", "🥲", "😍",
-                "😶‍🌫️", "🤩", "😞"
-            ],
-            numberOfPairsOfCards: 5,
-            color: .red
-        ),
-        EmojiMemoryGame.Theme(
-            name: "Animals",
-            emojis: [
-                "🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨",
-                "🐯", "🦁", "🐮", "🐷", "🐸", "🐵"
-            ],
-            numberOfPairsOfCards: 16,
-            color: .orange
-        ),
-        EmojiMemoryGame.Theme(
-            name: "Foods",
-            emojis: [
-                "🍔", "🌭", "🌮", "🌯", "🥙", "🥗", "🥪", "🍕", "🍟",
-                "🍖", "🍗", "🥓", "🍱", "🥘", "🧆", "🍲", "🍛", "🍜",
-                "🍝", "🍣", "🍤", "🍿"
-            ],
-            numberOfPairsOfCards: 99,
-            color: .yellow
-        ),
-        EmojiMemoryGame.Theme(
-            name: "Fruits",
-            emojis: [
-                "🍎", "🍏", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓",
-                "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥥", "🥝"
-            ],
-            numberOfPairsOfCards: 99,
-            color: .green
-        ),
-        EmojiMemoryGame.Theme(
-            name: "Sports",
-            emojis: [
-                "⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🏉", "🥏",
-                "🎱", "🪀", "🏓", "🏸", "🏒", "🏑", "🥍", "🏏", "🪃",
-                "🥅", "⛳️", "🏹", "🎣"
-            ],
-            numberOfPairsOfCards: 4,
-            color: .blue
-        ),
-        EmojiMemoryGame.Theme(
-            name: "Vehicles",
-            emojis: [
-                "🚕", "🚗", "🚙", "🚌", "🚎", "🏎", "🚓", "🚑", "🚒",
-                "🚐", "🛻", "🚚", "🚛", "🚜", "🚃", "🚟"
-            ],
-            numberOfPairsOfCards: 99,
-            color: .purple
-        ),
-    ]
 }
